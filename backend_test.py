@@ -45,15 +45,21 @@ class SugarCitySweepsAPITester:
         print(f"   {method} {endpoint}")
         
         try:
-            # Make request
+            # Make request - only pass cookies if explicitly provided
+            request_kwargs = {'headers': test_headers}
+            if cookies is not None:
+                request_kwargs['cookies'] = cookies
+            if data is not None:
+                request_kwargs['json'] = data
+                
             if method == 'GET':
-                response = self.session.get(url, headers=test_headers, cookies=cookies)
+                response = self.session.get(url, **request_kwargs)
             elif method == 'POST':
-                response = self.session.post(url, json=data, headers=test_headers, cookies=cookies)
+                response = self.session.post(url, **request_kwargs)
             elif method == 'PUT':
-                response = self.session.put(url, json=data, headers=test_headers, cookies=cookies)
+                response = self.session.put(url, **request_kwargs)
             elif method == 'DELETE':
-                response = self.session.delete(url, headers=test_headers, cookies=cookies)
+                response = self.session.delete(url, **request_kwargs)
             else:
                 raise ValueError(f"Unsupported method: {method}")
             
