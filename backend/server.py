@@ -1223,14 +1223,19 @@ async def responsible_gaming():
 
 app.include_router(api_router)
 
-# CORS Configuration - use specific origins (not wildcard) when credentials=True
+# CORS Configuration
 cors_origins_str = os.environ.get("CORS_ORIGINS", "http://localhost:3000")
-allowed_origins = [origin.strip() for origin in cors_origins_str.split(",")]
+if cors_origins_str.strip() == "*":
+    allowed_origins = ["*"]
+    use_credentials = False
+else:
+    allowed_origins = [origin.strip() for origin in cors_origins_str.split(",")]
+    use_credentials = True
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
-    allow_credentials=True,
+    allow_credentials=use_credentials,
     allow_methods=["*"],
     allow_headers=["*"],
 )
