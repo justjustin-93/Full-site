@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { user, loading } = useAuth();
   if (loading) return <LoadingScreen />;
-  if (!user) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/welcome" />;
   if (adminOnly && user.role !== "admin") return <Navigate to="/" />;
   return children;
 };
@@ -1566,6 +1566,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path="/welcome" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
