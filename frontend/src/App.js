@@ -251,18 +251,18 @@ const RegisterPage = () => {
 
             <div className="input-group">
               <label>Confirm Password</label>
-              <input type={showPassword ? "text" : "password"} placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+              <input data-testid="register-confirm-password" type={showPassword ? "text" : "password"} placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
             </div>
             
             <div className="checkbox-group">
               <label className="checkbox-label">
-                <input type="checkbox" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />
+                <input data-testid="register-terms" type="checkbox" checked={termsAccepted} onChange={(e) => setTermsAccepted(e.target.checked)} />
                 <span className="checkbox-custom"></span>
                 <span>I accept the <a href="#" onClick={(e) => e.preventDefault()}>Terms & Conditions</a></span>
               </label>
               
               <label className="checkbox-label">
-                <input data-testid="age-checkbox" type="checkbox" checked={ageVerified} onChange={(e) => setAgeVerified(e.target.checked)} />
+                <input data-testid="register-age-verify" type="checkbox" checked={ageVerified} onChange={(e) => setAgeVerified(e.target.checked)} />
                 <span className="checkbox-custom"></span>
                 <span><Shield size={14} /> I am <strong>21+ years old</strong></span>
               </label>
