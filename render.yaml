@@ -1,0 +1,60 @@
+# Render Blueprint for Sugar City Sweeps
+# This file automates deployment of both backend and frontend
+
+services:
+  # Backend API Service
+  - type: web
+    name: sugar-city-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: cd backend && pip install -r requirements.txt && playwright install chromium
+    startCommand: cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT --workers 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        value: sugar_city_sweeps
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false
+      - key: ADMIN_EMAIL
+        value: admin@sugarcitysweeps.com
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SUGAR_SWEEPS_USERNAME
+        sync: false
+      - key: SUGAR_SWEEPS_PASSWORD
+        sync: false
+      - key: SUGAR_SWEEPS_URL
+        value: https://sugarsweeps.com
+      - key: GAME_PLATFORM_USERNAME
+        sync: false
+      - key: GAME_PLATFORM_PASSWORD
+        sync: false
+      - key: STRIPE_API_KEY
+        sync: false
+      - key: CRYPTO_WALLET_ADDRESS
+        value: bc1qu7ataymu6x8lx340ul7s0mfzqt3cjpyc5rg46q
+      - key: CARD_PAYMENT_TAG
+        value: $jrs092393
+      - key: FRONTEND_URL
+        sync: false
+
+  # Frontend Static Site
+  - type: web
+    name: sugar-city-frontend
+    env: static
+    region: oregon
+    buildCommand: cd frontend && yarn install && yarn build
+    staticPublishPath: frontend/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        sync: false

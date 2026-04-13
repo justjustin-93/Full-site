@@ -1,0 +1,112 @@
+{
+  "project_name": "Sugar City Sweeps",
+  "app_type": "mobile_web_app",
+  "theme": "dark",
+  "archetype": "Archetype 5: Jewel & Luxury + Futuristic Tech",
+  "vibe": "Sleek, modern, premium, futuristic. Moving away from the 'beginning of electronic' or 'candy/magenta' feel. We want an immersive, high-end sweepstakes platform similar to bitspinwin/sugarsweeps but more refined.",
+  "colors": {
+    "background": {
+      "base": "#0A0F1A",
+      "surface": "#121A2F",
+      "glass": "rgba(255, 255, 255, 0.03)"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#94A3B8",
+      "muted": "#64748B"
+    },
+    "accents": {
+      "primary": "#F59E0B",
+      "primary_hover": "#D97706",
+      "primary_glow": "rgba(245, 158, 11, 0.5)",
+      "secondary": "#06B6D4",
+      "secondary_hover": "#0891B2",
+      "secondary_glow": "rgba(6, 182, 212, 0.5)",
+      "danger": "#EF4444",
+      "success": "#10B981"
+    },
+    "currency": {
+      "sugar_tokens": "#F59E0B",
+      "game_credits": "#06B6D4"
+    },
+    "border": "rgba(255, 255, 255, 0.1)"
+  },
+  "typography": {
+    "headings": {
+      "family": "Unbounded, sans-serif",
+      "weight": "700",
+      "tracking": "tracking-tight"
+    },
+    "body": {
+      "family": "Manrope, sans-serif",
+      "weight": "400",
+      "tracking": "tracking-normal"
+    }
+  },
+  "spacing_and_layout": {
+    "philosophy": "Generous spacing. Mobile-first. Padding should be p-6 to p-8 inside cards. Use bento grids for dashboard.",
+    "dashboard_grid": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6",
+    "marketing_grid": "grid-cols-1 md:grid-cols-12 gap-8",
+    "mobile_nav": "fixed bottom-0 w-full z-50 bg-[#0A0F1A]/90 backdrop-blur-xl border-t border-white/10 px-4 py-3 flex justify-between items-center"
+  },
+  "components": {
+    "cards": "Cardless or 'Crystal Glass' style. bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6. Add a subtle shadow-[0_8px_32px_rgba(0,0,0,0.2)].",
+    "buttons": {
+      "primary": "bg-gradient-to-r from-amber-500 to-orange-500 text-black font-bold rounded-xl px-6 py-3 hover:scale-105 transition-transform shadow-[0_0_15px_rgba(245,158,11,0.4)]",
+      "secondary": "bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-xl px-6 py-3 hover:scale-105 transition-transform shadow-[0_0_15px_rgba(6,182,212,0.4)]",
+      "ghost": "bg-white/5 text-white border border-white/10 hover:bg-white/10 rounded-xl px-6 py-3 transition-colors"
+    },
+    "header": "Sticky top, backdrop-blur-xl bg-[#0A0F1A]/80 z-50 border-b border-white/10. Must display dual currency balances prominently.",
+    "inputs": "Shadcn UI heavily customized: bg-[#121A2F] border-white/10 text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl"
+  },
+  "key_features": {
+    "dual_currency": "Header must show two balances side-by-side: Sugar Tokens (Gold Icon/Text) and Game Credits (Cyan Icon/Text).",
+    "amoe_claim": "Prominent 'Daily AMOE Claim' button in the dashboard (legal requirement). Should have a countdown or 'Available Now' glowing state.",
+    "bottom_nav": "For mobile screens, fixed bottom navigation with icons: Home, Transfer, Deposit, Redeem, Withdraw.",
+    "transfer_p2p": "A dedicated section/modal to transfer Game Credits to specific platforms (Juwa, Milkyway, Vblink, etc.) using a select dropdown and amount input."
+  },
+  "pages_to_build": [
+    "Landing Page / Home (Hero with 3D characters, Deposit CTA, payment methods, features)",
+    "User Dashboard (Tabs: Games, Deposit, Redeem, Withdraw, History, Settings, Support)",
+    "Transfer Page (P2P Platform transfer form)",
+    "Admin Panel (Analytics, User Management, Master Control, Redemption Queue)"
+  ],
+  "media": {
+    "images": {
+      "hero_background": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/277850fc-bc6e-455b-9c5c-b658f6c65a73/images/a30c0d70040e1a99de5614df607c7ce231abf1df282ad4f76bf209d7f6a36efc.png",
+        "description": "Abstract dark luxury futuristic casino background.",
+        "usage": "Use as a full-screen background for the Landing page hero section, wrapped in a div with bg-cover and bg-center. Add a dark gradient overlay so text remains readable."
+      },
+      "mascot_bitcoin": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/277850fc-bc6e-455b-9c5c-b658f6c65a73/images/7dbdd8161505460ef26d829a8986a51218e82196de098bc35962f0db3ddfcc81.png",
+        "description": "3D futuristic gingerbread man holding a glowing Bitcoin.",
+        "usage": "Use in the Hero section or the 'Deposit/Crypto' section of the landing page."
+      },
+      "mascot_creditcard": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/277850fc-bc6e-455b-9c5c-b658f6c65a73/images/573d43a3aa3e00d0d561ba039b5e05f84d1b59136a2a5d17b16a56b2ea931a0d.png",
+        "description": "3D futuristic gingerbread man sliding a premium black credit card.",
+        "usage": "Use in the 'Purchase Sugar Tokens / Deposit' tab of the dashboard."
+      },
+      "floating_tokens": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/277850fc-bc6e-455b-9c5c-b658f6c65a73/images/334ade12d4c02b6690501366e3f0b2f52aa9b060c1b79d5cc50dd6f9f5eb289c.png",
+        "description": "3D floating glossy golden and cyan tokens on transparent background.",
+        "usage": "Use as a decorative floating element (absolute positioning) around the dual currency display or AMOE claim section."
+      }
+    },
+    "icons_and_logos": {
+      "strategy": "DO NOT use placeholder URLs for game logos. Since we lack specific logos for Juwa, Milkyway, etc., create sleek typographic 'Game Cards' using gradients and the game name, or use Phosphor/Lucide icons combined with rich background colors to represent platforms.",
+      "libraries_to_use": ["lucide-react", "@phosphor-icons/react"]
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the color palette. No neon pink/magenta unless explicitly requested by the user later. Stick to Obsidian, Gold, and Cyan.",
+    "Ensure all interactive elements have hover and focus states.",
+    "Implement the Dual-Currency header on the Dashboard.",
+    "Install and use 'Unbounded' from Google Fonts for headings, and 'Manrope' for body text.",
+    "For the Landing page hero, overlap the 'mascot_bitcoin' image over the 'hero_background'.",
+    "Build the dashboard using Shadcn Tabs or custom navigational layout. Ensure the mobile view uses the bottom fixed navigation.",
+    "The Transfer page should be visually distinct, emphasizing the P2P aspect with a clear 'Platform', 'Username', and 'Amount' layout.",
+    "Add 'data-testid' to all buttons, links, and form inputs for testing."
+  ]
+}

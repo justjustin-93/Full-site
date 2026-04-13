@@ -1,0 +1,9 @@
+node_modules
+__pycache__
+*.pyc
+.git
+.vscode
+*.log
+test_reports
+.emergent
+automation_output
