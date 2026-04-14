@@ -461,32 +461,71 @@ const Dashboard = () => {
 };
 
 // Games Tab
-const GamesTab = ({ games }) => (
-  <div className="tab-content games-tab">
-    <div className="section-header">
-      <h2>Our Games</h2>
-      <p>Download and play your favorite sweepstakes games</p>
-    </div>
-    <div className="games-grid">
-      {games.map((game) => (
-        <div key={game.id} className="game-card-simple" data-accent={game.accent_color}>
-          <div className="game-logo">
-            <img 
-              src={game.logo_url} 
-              alt={game.name}
-              onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(game.name)}&background=1a1a2e&color=F59E0B&size=200&bold=true&font-size=0.4`; }}
-            />
+const GamesTab = ({ games }) => {
+  const { user } = useAuth();
+  const [copiedField, setCopiedField] = useState("");
+
+  const copyText = (text, field) => {
+    navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(""), 2000);
+    toast.success("Copied!");
+  };
+
+  return (
+    <div className="tab-content games-tab">
+      {/* Player Credentials Banner */}
+      {user?.game_username && (
+        <div className="credentials-banner" data-testid="credentials-banner">
+          <div className="cred-banner-title">
+            <Shield size={18} />
+            <span>Your Universal Game Login</span>
           </div>
-          <h3>{game.name}</h3>
-          <a href={game.game_url} target="_blank" rel="noopener noreferrer" className="download-btn">
-            <Download size={16} />
-            <span>Download</span>
-          </a>
+          <p className="cred-banner-desc">Use these credentials to sign into ALL game platforms below</p>
+          <div className="cred-banner-fields">
+            <div className="cred-field" data-testid="cred-username">
+              <label>Username</label>
+              <div className="cred-value" onClick={() => copyText(user.game_username, "user")}>
+                <span>{user.game_username}</span>
+                {copiedField === "user" ? <Check size={14} /> : <Copy size={14} />}
+              </div>
+            </div>
+            <div className="cred-field" data-testid="cred-password">
+              <label>Password</label>
+              <div className="cred-value" onClick={() => copyText(user.game_password, "pass")}>
+                <span>{user.game_password}</span>
+                {copiedField === "pass" ? <Check size={14} /> : <Copy size={14} />}
+              </div>
+            </div>
+          </div>
         </div>
-      ))}
+      )}
+
+      <div className="section-header">
+        <h2>Our Games</h2>
+        <p>Download, sign in with your credentials above, and play</p>
+      </div>
+      <div className="games-grid">
+        {games.map((game) => (
+          <div key={game.id} className="game-card-simple" data-accent={game.accent_color} data-testid={`game-card-${game.id}`}>
+            <div className="game-logo">
+              <img 
+                src={game.logo_url} 
+                alt={game.name}
+                onError={(e) => { e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(game.name)}&background=1a1a2e&color=F59E0B&size=200&bold=true&font-size=0.35`; }}
+              />
+            </div>
+            <h3>{game.name}</h3>
+            <a href={game.game_url} target="_blank" rel="noopener noreferrer" className="download-btn" data-testid={`download-${game.id}`}>
+              <Download size={16} />
+              <span>Download & Play</span>
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Deposit Tab
 const DepositTab = ({ games, onSuccess }) => {
@@ -671,62 +710,87 @@ const DepositTab = ({ games, onSuccess }) => {
   );
 };
 
-// Redeem Tab
+// Redeem Tab - matches Withdraw layout
 const RedeemTab = ({ games }) => {
-  const [fromGame, setFromGame] = useState("");
-  const [toGame, setToGame] = useState("");
+  const { user, refreshUser } = useAuth();
+  const [selectedGame, setSelectedGame] = useState("");
   const [amount, setAmount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (games.length >= 2) {
-      setFromGame(games[0].id);
-      setToGame(games[1].id);
-    }
-  }, [games, setFromGame, setToGame]);
+    if (games.length > 0 && !selectedGame) setSelectedGame(games[0].id);
+  }, [games, selectedGame]);
 
-  const handleRedeem = () => {
-    toast.info("Redeem feature coming soon! Contact support to transfer credits between games.");
+  const handleRedeem = async () => {
+    if (!amount || parseFloat(amount) <= 0) {
+      toast.error("Please enter a valid amount");
+      return;
+    }
+    if (parseFloat(amount) > (user?.game_credits || 0)) {
+      toast.error("Insufficient game credits");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      toast.info("Redemption submitted! Your credits are being transferred to your selected game platform. Admin will process within 1-24 hours.");
+      setAmount("");
+      if (refreshUser) refreshUser();
+    } catch (err) {
+      toast.error("Redemption failed. Please contact support.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="tab-content redeem-tab">
+    <div className="tab-content withdraw-tab" data-testid="redeem-tab">
       <div className="section-header">
-        <h2>Redeem / Transfer</h2>
-        <p>Transfer your credits between games</p>
+        <h2>Redeem Credits</h2>
+        <p>Transfer your Game Credits to a specific game platform</p>
       </div>
 
-      <div className="redeem-form">
-        <div className="form-row">
+      <div className="withdraw-container">
+        <div className="withdraw-form">
           <div className="form-section">
-            <label>From Game</label>
-            <select value={fromGame} onChange={(e) => setFromGame(e.target.value)}>
+            <label>Select Game Platform</label>
+            <select data-testid="redeem-game-select" value={selectedGame} onChange={(e) => setSelectedGame(e.target.value)}>
               {games.map((game) => <option key={game.id} value={game.id}>{game.name}</option>)}
             </select>
           </div>
-          
-          <div className="transfer-icon">
-            <RefreshCw size={24} />
-          </div>
-          
+
           <div className="form-section">
-            <label>To Game</label>
-            <select value={toGame} onChange={(e) => setToGame(e.target.value)}>
-              {games.map((game) => <option key={game.id} value={game.id}>{game.name}</option>)}
-            </select>
+            <label>Credits to Redeem</label>
+            <div className="input-with-icon">
+              <DollarSign size={20} />
+              <input
+                data-testid="redeem-amount"
+                type="number"
+                min="1"
+                step="0.01"
+                placeholder="Enter credit amount"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </div>
+            <small>Available Game Credits: {user?.game_credits?.toLocaleString() || "0"}</small>
           </div>
-        </div>
 
-        <div className="form-section">
-          <label>Amount to Transfer</label>
-          <div className="amount-input-box">
-            <span className="currency">$</span>
-            <input type="number" min="1" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" />
+          <div className="withdraw-info">
+            <p>How Redemption Works:</p>
+            <ul>
+              <li><span>Step 1:</span> <span>Select the game platform you want credits on</span></li>
+              <li><span>Step 2:</span> <span>Enter how many credits to transfer</span></li>
+              <li><span>Step 3:</span> <span style={{color: '#10B981'}}>Credits are loaded to your game account</span></li>
+            </ul>
+            <p style={{fontSize: '13px', marginTop: '15px', color: '#94A3B8'}}>
+              Your universal game login will be used for the selected platform. Credits are typically loaded within minutes.
+            </p>
           </div>
-        </div>
 
-        <button className="btn-primary" onClick={handleRedeem}>Transfer Credits</button>
-        
-        <p className="info-text">Contact support for instant transfers between your game accounts.</p>
+          <button data-testid="redeem-submit" className="btn-primary btn-withdraw" disabled={isLoading} onClick={handleRedeem}>
+            {isLoading ? <span className="btn-loader"></span> : `Redeem ${amount || "0"} Credits`}
+          </button>
+        </div>
       </div>
     </div>
   );

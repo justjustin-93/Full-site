@@ -1329,8 +1329,8 @@ async def startup_event():
                 "id": "panda_master",
                 "name": "Panda Master",
                 "platform_id": "panda_master",
-                "logo_url": "https://images.unsplash.com/photo-1726004592905-dc5cd794bda6?w=400&h=400&fit=crop&crop=center&q=80",
-                "game_url": "https://pandamaster.vip/download",
+                "logo_url": "https://play-lh.googleusercontent.com/proxy/3z42dNkMJVIPqd5m8lGlbqWPNFf24kfzHJDvj7rvyF0EVaqfVJGMrYL8xvB5mUwxDc0K87pfNT3JuABlxPaJGpZECMG3V2g=s256-rw",
+                "game_url": "https://play.pandamaster.vip",
                 "description": "Panda themed sweepstakes",
                 "is_active": True,
                 "accent_color": "#00d4ff"
@@ -1339,8 +1339,8 @@ async def startup_event():
                 "id": "orion_stars",
                 "name": "Orion Stars",
                 "platform_id": "orion_stars",
-                "logo_url": "https://images.pexels.com/photos/12877878/pexels-photo-12877878.jpeg?auto=compress&cs=tinysrgb&w=400&h=400&fit=crop",
-                "game_url": "https://orionstars.vip/download",
+                "logo_url": "https://play-lh.googleusercontent.com/fxKl-jDCVaVDp5W0V1J9M6G0D28YOmKZ6FNdGlcN0lx7JiE5CxCqJLgXAVxfxFKKrg=s256-rw",
+                "game_url": "https://play.orionstars.vip",
                 "description": "Space-themed sweepstakes",
                 "is_active": True,
                 "accent_color": "#4444ff"
@@ -1349,8 +1349,8 @@ async def startup_event():
                 "id": "game_vault",
                 "name": "Game Vault",
                 "platform_id": "game_vault",
-                "logo_url": "https://images.unsplash.com/photo-1695189623052-b25432fd9886?w=400&h=400&fit=crop&crop=center&q=80",
-                "game_url": "https://gamevault999.com/download",
+                "logo_url": "https://play-lh.googleusercontent.com/P8_s8cUvVA7S5gEy7lHy4Kb6zRzIILRgOKVD-xJrp7tgj01i6OjXQTNJ7Q3Y49hpBQ=s256-rw",
+                "game_url": "https://download.gamevault999.com",
                 "description": "Premium game collection",
                 "is_active": True,
                 "accent_color": "#44ff44"
